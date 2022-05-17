@@ -108,8 +108,8 @@ class News(Dataset):
         heads = torch.from_numpy(self.vecs.transform(self.heads_[i * self.batch_size:(i + 1) * self.batch_size]))
         bodies = torch.from_numpy(self.vecs.transform(self.bodies_[i * self.batch_size:(i + 1) * self.batch_size]))
         stances = torch.LongTensor(self.stances[i * self.batch_size:(i + 1) * self.batch_size])
-        heads = torch.from_numpy(self.vecs.model.vectors[heads]).permute(0, 2, 1)
-        bodies = torch.from_numpy(self.vecs.model.vectors[bodies]).permute(0, 2, 1)
+        heads = torch.from_numpy(self.vecs.model.vectors[heads].reshape(*heads.shape, 300)).permute(0, 2, 1)
+        bodies = torch.from_numpy(self.vecs.model.vectors[bodies].reshape(*bodies.shape, 300)).permute(0, 2, 1)
         # heads = self.heads[i]
         # bodies = self.bodies[i]
         # stances = self.stances[i]

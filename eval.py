@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-n', help='team name', type=str, default='ours')
 args = parser.parse_args()
 team_name = args.n
+team_name = 'team3'
 if team_name=='base':
     team_name = 'fnc-1-baseline'
 src_dir = os.path.join(team_name, 'out.csv')

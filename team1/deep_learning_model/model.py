@@ -12,17 +12,22 @@ class mymodel(nn.Module):
         self.convs = nn.Sequential(
             nn.Conv1d(emb_dim, n_hidden, 3, padding=3),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.MaxPool1d(kernel_size=2),
             nn.Conv1d(n_hidden, n_hidden, 3, padding=3),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.MaxPool1d(kernel_size=2),
             nn.Conv1d(n_hidden, n_hidden*2, 3, padding=3),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.MaxPool1d(kernel_size=2),
             nn.Conv1d(n_hidden*2, n_hidden*2, 3, padding=1),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Conv1d(n_hidden*2, n_hidden*3, 3, padding=1),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
         )
 
         self.linear = nn.Sequential(

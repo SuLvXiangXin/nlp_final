@@ -80,7 +80,7 @@ if __name__ == '__main__':
     eval_test = args.e
     evaluate = True
     # os.environ["CUDA_VISIBLE_DEVICES"] = "3"
-    device = torch.device('cuda:3')
+    device = torch.device('cuda:1')
 
     np.random.seed(2)
     # static values
@@ -102,7 +102,6 @@ if __name__ == '__main__':
         resume = True
     else:
         resume = False
-    # resume = True
     if resume:
         resume_path = 'best.pth'
         checkpoint = torch.load(resume_path, map_location=device)
@@ -136,7 +135,7 @@ if __name__ == '__main__':
             a = 0
             model.eval()
             for i, (head, body, stance) in enumerate(test_set):
-                if i >= len(test_set):
+                if i >= len(test_set)-1:
                     break
                 # iterate through the test_news set and output probabilities to csv
                 h, b = test_set.heads_[i], test_set.bids[i]
