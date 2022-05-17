@@ -110,7 +110,6 @@ if __name__ == '__main__':
         optimizer.load_state_dict(checkpoint['optim'])
         start_epoch = checkpoint['epoch']
         train_acc_list, train_loss_list, val_acc_list, val_loss_list, s_train_list, s_val_list = checkpoint['log']
-        test_acc_list, test_loss_list, s_test_list = [], [], []
         if evaluate:
             max_s = max(s_val_list)
         else:
@@ -118,7 +117,6 @@ if __name__ == '__main__':
     else:
         start_epoch = 0
         train_acc_list, train_loss_list, val_acc_list, val_loss_list, s_train_list, s_val_list = [], [], [], [], [], []
-        test_acc_list, test_loss_list, s_test_list = [], [], []
         max_s = 0
     if eval_test:
         LABELS = ['agree', 'disagree', 'discuss', 'unrelated']
@@ -167,14 +165,9 @@ if __name__ == '__main__':
     N = len(train_set)
 
     if evaluate:
-        # train_set, val_set = torch.utils.data.random_split(dataset=train_set,
-        #                                                    lengths=[N - int(val_size * N), int(val_size * N)])
-        test_set = News(stances_path=os.path.join(data_path, 'competition_test_stances.csv'),
-                        bodies_path=os.path.join(data_path, 'competition_test_bodies.csv'), vecs=v,
-                        batch_size=batch_size)
-        # train_set = ConcatDataset([train_set, test_set])
-        # val_loader = DataLoader(val_set, batch_size=batch_size)
-        test_loader = DataLoader(test_set, batch_size=batch_size)
+        train_set, val_set = torch.utils.data.random_split(dataset=train_set,
+                                                           lengths=[N - int(val_size * N), int(val_size * N)])
+        val_loader = DataLoader(val_set, batch_size=batch_size)
     train_loader = DataLoader(train_set, batch_size=batch_size)
     loss_func = nn.CrossEntropyLoss()
     best_score = 0
@@ -183,25 +176,19 @@ if __name__ == '__main__':
         train_loss, train_acc, s_train, a_train = train(model, optimizer, train_set, loss_func, device)
 
         if evaluate:
-            # val_loss, val_acc, s_val, a_val = val(model, val_set, loss_func, device)
-            val_loss, val_acc, s_val, a_val = 0, 0, 0, 0
-            test_loss, test_acc, s_test, a_test = val(model, test_set, loss_func, device)
+            val_loss, val_acc, s_val, a_val = val(model, val_set, loss_func, device)
         else:
             val_loss, val_acc, s_val, a_val = 0, 0, 0, 0
-            test_loss, test_acc, s_test, a_test = 0, 0, 0, 0
         train_loss_list.append(train_loss)
         train_acc_list.append(train_acc)
         val_loss_list.append(val_loss)
         val_acc_list.append(val_acc)
-        test_loss_list.append(test_loss)
-        test_acc_list.append(test_acc)
         s_train_list.append(s_train)
         s_val_list.append(s_val)
-        s_test_list.append(s_test)
 
         # if i%10==0:
         print(f'Epoch:{i}, train loss:{train_loss}, train acc:{train_acc}, train_score:{s_train}/{a_train}, '
-              f'val_loss:{val_loss}, val acc:{val_acc}, val_score:{s_val}/{a_val}, test_score:{s_test}/{a_test}')
+              f'val_loss:{val_loss}, val acc:{val_acc}, val_score:{s_val}/{a_val}')
 
         if evaluate and max(s_val_list) > max_s:
             max_s = max(s_val_list)
