@@ -10,7 +10,7 @@ based on
 
 [team3](https://github.com/uclmr/fakenewschallenge)
 
-ours model based on [BERT]()
+our model based on [BERT]()
 
 
 ```shell
