@@ -46,7 +46,7 @@ def score_defaults(gold_labels):
 
 def load_dataset(filename):
     with open(filename) as fh:
-        reader = csv.DictReader(fh,encoding='ISO-8859-1')
+        reader = csv.DictReader(fh)
         data = list(reader)
     return data
 
