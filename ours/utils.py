@@ -1,9 +1,10 @@
 from torch.nn import CrossEntropyLoss
 import torch
+import numpy as np
 
 class WeightedLoss:
     def __init__(self, w=(0.25, 1)):
-        self.w = w
+        self.w = np.array(w)/np.sum(w)
         self.loss_func = CrossEntropyLoss()
 
     def __call__(self, pred, target):

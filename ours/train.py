@@ -9,18 +9,23 @@ from utils import WeightedLoss, score
 import argparse
 transformers.logging.set_verbosity_error()
 
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
 
+setup_seed(0)
 parser = argparse.ArgumentParser()
-parser.add_argument('-w', help='weight', type=str, default='0.25,1')
-parser.add_argument('-p', help='experiment path', type=str, default='run/weight_0.25_1')
+parser.add_argument('-w', help='weight', type=str, default='0.5,1')
+parser.add_argument('-p', help='experiment path', type=str, default='run/weight_0.5_1')
 parser.add_argument('-b', help='batch size', type=int, default=24)
 parser.add_argument('-v', help='validation size', type=float, default=0.1)
-parser.add_argument('-d', help='device', type=str, default='cuda:1')
+parser.add_argument('-d', help='device', type=int, default=1)
 args = parser.parse_args()
 exp_path = args.p
 batch_size = args.b
 val_size = args.v
-device = args.d
+device = 'cuda:%d'%args.d
 weight = [float(w) for w in args.w.split(',')]
 
 os.makedirs(exp_path, exist_ok=True)
@@ -108,4 +113,4 @@ for epoch in range(start_epoch, epochs):
         torch.save({'model': model.state_dict(), 'optim': optimizer.state_dict(), 'epoch': epoch, 'best_score': best_score},
                    os.path.join(exp_path, 'best.pth'))
 if best_epoch > 0:
-    print('The best model is at epoch %d' % best_epoch)
+    print('The best model is at epoch %d' % best_epoch, best_score)

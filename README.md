@@ -46,4 +46,11 @@ cd team3
 python pred.py
 cd ../
 python eval.py -n team3
+
+# ours
+cd ours
+python concat_data.py
+python train.py
+python test.py
+python eval.py -n ours
 ```
