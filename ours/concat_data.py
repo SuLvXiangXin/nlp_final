@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+
 def merge_data(stances_file, bodies_file, merged_file, train=True, path='../fnc-1'):
     """
     以名字为”Body ID“的列合并两个csv文件，并调整列的顺序为 ['Headline', 'articleBody', 'Stance']
@@ -15,8 +16,6 @@ def merge_data(stances_file, bodies_file, merged_file, train=True, path='../fnc-
     stances = pd.read_csv(stances_file_).reset_index()
     bodies = pd.read_csv(bodies_file_)
     merged = pd.merge(stances, bodies, on='Body ID').sort_values('index').drop(['index', 'Body ID'], axis=1)
-    # if not train:
-    #     merged['Stance'] = None
     merged = merged.loc[:, ['Headline', 'articleBody', 'Stance']]
     merged.to_csv(merged_file, index=0, encoding='utf_8')
     print("Saving is finished.", merged.shape)

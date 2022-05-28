@@ -1,6 +1,7 @@
-based on 
+### Overview
+This is the repo for our Natural Language Processing (DATA130030) final project in Fudan University. 
 
-[Official](http://www.fakenewschallenge.org/)
+We reproduce the top three team in [fakenewschallenge.org](http://www.fakenewschallenge.org/), and implement our own model using BERT. Our code is based on the following great work.
 
 [baseline](https://github.com/FakeNewsChallenge/fnc-1-baseline)
 
@@ -10,9 +11,8 @@ based on
 
 [team3](https://github.com/uclmr/fakenewschallenge)
 
-our model based on [BERT]()
-
-
+### Train / Evaluate
+You can simply run the following code to reproduce the result in our paper.
 ```shell
 git clone 
 cd nlp_final
@@ -24,6 +24,8 @@ cd ../
 python eval.py -n base
 
 # team1
+# you need to download GoogleNews-vectors-negative300.bin from https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?resourcekey=0-wjGZdNAUop6WykTtMip30g
+# and place it in team1/deep_learning_model
 cd team1/deep_learning_model
 python clf.py
 python clf.py -e
@@ -47,10 +49,17 @@ python pred.py
 cd ../
 python eval.py -n team3
 
-# ours
+# our model
 cd ours
 python concat_data.py
 python train.py
 python test.py
 python eval.py -n ours
 ```
+
+### Team menber
+Gu Chun
+
+Li Youquan
+
+Lv Xinkai
