@@ -1,7 +1,7 @@
 ### Overview
 This is the repo for our Natural Language Processing (DATA130030) final project in Fudan University. 
 
-We reproduce the top three team in [fakenewschallenge.org](http://www.fakenewschallenge.org/), and implement our own model using BERT. Our code is based on the following great work.
+We reproduce the model of the top three team in [Fake News Challenge](http://www.fakenewschallenge.org/), and implement our own model using BERT. Our code is based on the following great work.
 
 [baseline](https://github.com/FakeNewsChallenge/fnc-1-baseline)
 
@@ -14,9 +14,11 @@ We reproduce the top three team in [fakenewschallenge.org](http://www.fakenewsch
 ### Train / Evaluate
 You can simply run the following code to reproduce the result in our paper.
 ```shell
-git clone 
+git clone https://github.com/SuLvXiangXin/nlp_final
 cd nlp_final
+# download the dataset
 git clone https://github.com/FakeNewsChallenge/fnc-1.git
+
 # baseline
 cd fnc-1-baseline
 python fnc_kfold.py
