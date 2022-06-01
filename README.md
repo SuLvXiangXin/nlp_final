@@ -14,6 +14,13 @@ We reproduce the model of the top three team in [Fake News Challenge](http://www
 ### Train / Evaluate
 You can simply run the following code to reproduce the result in our paper.
 
+You can also download our complete project at the following link (including the trained weight)
+
+链接：https://pan.baidu.com/s/1fu767D0ocN6jD15Gh5TFDQ 
+
+提取码：gl9p 
+
+
 ```shell
 git clone https://github.com/SuLvXiangXin/nlp_final
 cd nlp_final
