@@ -13,9 +13,14 @@ We reproduce the model of the top three team in [Fake News Challenge](http://www
 
 ### Train / Evaluate
 You can simply run the following code to reproduce the result in our paper.
+
 ```shell
 git clone https://github.com/SuLvXiangXin/nlp_final
 cd nlp_final
+
+# install the requirements
+pip install -r requirements.txt
+
 # download the dataset
 git clone https://github.com/FakeNewsChallenge/fnc-1.git
 
